@@ -1,4 +1,4 @@
-fla"""Greeting Flask app."""
+"""Greeting Flask app."""
 
 from random import choice
 
@@ -18,8 +18,17 @@ AWESOMENESS = [
 def start_here():
     """Home page."""
 
-    return "<!doctype html><html>Hi! This is the home page.</html>"
-
+    return """
+    <!doctype html>
+    <html>
+      <head>
+        <title>Start Here</title>
+      </head>
+      <body>
+        <a href="/hello">Take me to the start</a>
+      </body>
+    </html>
+    """
 
 @app.route('/hello')
 def say_hello():
@@ -33,22 +42,34 @@ def say_hello():
       </head>
       <body>
         <h1>Hi There!</h1>
-        <form action="/greet">
+        <form action="/greet" method='GET'>
           What's your name? <input type="text" name="person">
+          What compliment would you like?
+          <input type="radio" name="compliment" value="awesome">Awesome<br>
+          <input type="radio" name="compliment" value="terrific">Terrific<br>
+          <input type="radio" name="compliment" value="fantastic">Fantastic<br>
+          <input type="radio" name="compliment" value="neato">Neato<br>
+          <input type="radio" name="compliment" value="fantabulous">Fantabulous<br>
+          <input type="radio" name="compliment" value="wowza">Wowza<br>
+          <input type="radio" name="compliment" value="oh-so-not-meh">Oh-so-not-meh<br>
+          <input type="radio" name="compliment" value="brilliant">Brilliant<br>
+          <input type="radio" name="compliment" value="ducky">Ducky<br>
+          <input type="radio" name="compliment" value="coolio">Coolio<br>
+          <input type="radio" name="compliment" value="incredible">Incredible<br>
+          <input type="radio" name="compliment" value="wonderful">Wonderful<br>
+          <input type="radio" name="compliment" value="smashing">Smashing<br>
+          <input type="radio" name="compliment" value="lovely">Lovely<br>
           <input type="submit" value="Submit">
         </form>
       </body>
     </html>
     """
-
-
 @app.route('/greet')
 def greet_person():
     """Get user by name."""
 
     player = request.args.get("person")
-
-    compliment = choice(AWESOMENESS)
+    compliment = request.args.get("compliment")
 
     return f"""
     <!doctype html>
@@ -61,7 +82,24 @@ def greet_person():
       </body>
     </html>
     """
+@app.route('/diss')
+def diss_person():
+    """Get user by name."""
 
+    player = request.args.get("person")
+    disrespect = request.args.get("disrespect")
+
+    return f"""
+    <!doctype html>
+    <html>
+      <head>
+        <title>A Disrespect</title>
+      </head>
+      <body>
+        Hi, {player}! I think you're {disrespect}!
+      </body>
+    </html>
+    """
 
 if __name__ == '__main__':
     # debug=True gives us error messages in the browser and also "reloads"
