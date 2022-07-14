@@ -13,7 +13,6 @@ AWESOMENESS = [
     'oh-so-not-meh', 'brilliant', 'ducky', 'coolio', 'incredible',
     'wonderful', 'smashing', 'lovely']
 
-
 @app.route('/')
 def start_here():
     """Home page."""
@@ -25,7 +24,17 @@ def start_here():
         <title>Start Here</title>
       </head>
       <body>
-        <a href="/hello">Take me to the start</a>
+          What page would you like?
+          <p></p>
+          <form action="/hello" method='GET'>
+          <a href="/hello">Take me to the compliment page</a>
+           <input type="submit" value="Submit">
+          </form>
+          <p></p>
+          <form action="/hello-diss" method='GET'>
+          <a href="/hello-diss">Take me to the disrespect page</a>
+          <input type="submit" value="Submit">
+          </form>
       </body>
     </html>
     """
@@ -45,6 +54,7 @@ def say_hello():
         <form action="/greet" method='GET'>
           What's your name? <input type="text" name="person">
           What compliment would you like?
+          <p>
           <input type="radio" name="compliment" value="awesome">Awesome<br>
           <input type="radio" name="compliment" value="terrific">Terrific<br>
           <input type="radio" name="compliment" value="fantastic">Fantastic<br>
@@ -59,6 +69,7 @@ def say_hello():
           <input type="radio" name="compliment" value="wonderful">Wonderful<br>
           <input type="radio" name="compliment" value="smashing">Smashing<br>
           <input type="radio" name="compliment" value="lovely">Lovely<br>
+          </p>
           <input type="submit" value="Submit">
         </form>
       </body>
@@ -82,6 +93,43 @@ def greet_person():
       </body>
     </html>
     """
+@app.route('/hello-diss')
+def say_hello_diss():
+    """Say hello and prompt for user's name."""
+
+    return """
+    <!doctype html>
+    <html>
+      <head>
+        <title>Hi There!</title>
+      </head>
+      <body>
+        <h1>Hi There!</h1>
+        <form action="/diss" method='GET'>
+          What's your name? <input type="text" name="person">
+          What diss would you like?
+          <p>
+          <input type="radio" name="disrespect" value="gross">Gross<br>
+          <input type="radio" name="disrespect" value="lousy">Lousy<br>
+          <input type="radio" name="disrespect" value="stupid">Stupid<br>
+          <input type="radio" name="disrespect" value="lame">Lame<br>
+          <input type="radio" name="disrespect" value="pond scum">Pond Scum<br>
+          <input type="radio" name="disrespect" value="meh">Meh<br>
+          <input type="radio" name="disrespect" value="boring">Boring<br>
+          <input type="radio" name="disrespect" value="annoying">Annoying<br>
+          <input type="radio" name="disrespect" value="childish">Childish<br>
+          <input type="radio" name="disrespect" value="rat fink">Rat Fink<br>
+          <input type="radio" name="disrespect" value="infantile">Infantile<br>
+          <input type="radio" name="disrespect" value="worthless">Worthless<br>
+          <input type="radio" name="disrespect" value="airhead">Airhead<br>
+          <input type="radio" name="disrespect" value="blockhead">Blockhead<br>
+          </p>
+          <input type="submit" value="Submit">
+        </form>
+      </body>
+    </html>
+    """
+
 @app.route('/diss')
 def diss_person():
     """Get user by name."""
